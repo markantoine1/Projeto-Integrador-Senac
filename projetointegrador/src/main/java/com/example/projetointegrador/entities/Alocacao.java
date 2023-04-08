@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -15,25 +14,19 @@ public class Alocacao implements Serializable{
 	@Id
 	private String id;
 	private String sala;
-	private Date date;
-	private String turno;
-	
-	@DBRef
-	private Professor professor;
-	
-	@DBRef
-	private Curso curso;
+	private Date data;
+	private String nomeProfessor;
+	private String nomeCurso;
 
 	public Alocacao() {
 	}
 	
-	public Alocacao(String id, String sala, Date date, String turno, Professor professor, Curso curso) {
+	public Alocacao(String id, String sala, Date date, String nomeProfessor, String nomeCurso) {
 		this.id = id;
 		this.sala = sala;
-		this.date = date;
-		this.turno = turno;
-		this.professor = professor;
-		this.curso = curso;
+		this.data = date;
+		this.nomeProfessor = nomeProfessor;
+		this.nomeCurso = nomeCurso;
 	}
 
 	public String getId() {
@@ -53,35 +46,27 @@ public class Alocacao implements Serializable{
 	}
 
 	public Date getDate() {
-		return date;
+		return data;
 	}
 
 	public void setDate(Date date) {
-		this.date = date;
+		this.data = date;
 	}
 
-	public String getTurno() {
-		return turno;
+	public String getProfessor() {
+		return nomeProfessor;
 	}
 
-	public void setTurno(String turno) {
-		this.turno = turno;
+	public void setProfessor(String professor) {
+		this.nomeProfessor = professor;
 	}
 
-	public Professor getProfessor() {
-		return professor;
+	public String getCurso() {
+		return nomeCurso;
 	}
 
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
-	}
-
-	public Curso getCurso() {
-		return curso;
-	}
-
-	public void setCurso(Curso curso) {
-		this.curso = curso;
+	public void setCurso(String curso) {
+		this.nomeCurso = curso;
 	}
 
 	@Override

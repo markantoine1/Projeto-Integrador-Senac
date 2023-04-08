@@ -44,6 +44,5 @@ public class AlocacaoService {
 		newObj.setDate(obj.getDate());
 		newObj.setProfessor(obj.getProfessor());
 		newObj.setSala(obj.getSala());
-		newObj.setTurno(obj.getTurno());
 	}
 }

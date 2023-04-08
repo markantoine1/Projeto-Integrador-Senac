@@ -1,12 +1,12 @@
 package com.example.projetointegrador.resources;
 
 import java.net.URI;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.projetointegrador.entities.Alocacao;
 import com.example.projetointegrador.services.AlocacaoService;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/alocacoes")
 public class AlocacaoResource {
@@ -40,7 +41,13 @@ public class AlocacaoResource {
 	
 	@PostMapping
  	public ResponseEntity<Alocacao> insert(@RequestBody Alocacao obj) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
+	@PostMapping(value = "/fromnode")
+ 	public ResponseEntity<Alocacao> insertFromNode(@RequestBody Alocacao obj) {
 		obj.setDate(new Date());
 		service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();

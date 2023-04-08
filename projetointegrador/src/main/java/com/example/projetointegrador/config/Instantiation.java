@@ -1,23 +1,24 @@
 package com.example.projetointegrador.config;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
-import com.example.projetointegrador.entities.Curso;
-import com.example.projetointegrador.repositories.CursoRepository;
+import com.example.projetointegrador.entities.Alocacao;
+import com.example.projetointegrador.repositories.AlocacaoRepository;
 
 @Configuration
 public class Instantiation implements CommandLineRunner{
 
 		@Autowired
-		private CursoRepository cursoRepository;
+		private AlocacaoRepository alocacaoRepository;
 		
 		@Override
 		public void run(String... args) throws Exception {
-			
-			Curso c1 = new Curso(null, "Técnico em Enfermagem", "Noite");
-			cursoRepository.save(c1);
+			Alocacao a1 = new Alocacao(null, "Sala 1", new Date(), "marcos", "Téc em Enfermagem");
+			alocacaoRepository.save(a1);
 		}
 
 	}
