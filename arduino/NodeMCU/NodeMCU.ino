@@ -37,6 +37,21 @@ void setup() {
   lcd.backlight();       // HABILITA O BACKLIGHT (LUZ DE FUNDO)
   WiFi.begin(ssid, password);
 
+  while (WiFi.status() != WL_CONNECTED) {
+    lcd.setCursor(0, 0);  //SETA A POSIÇÃO EM QUE O CURSOR INCIALIZA(LINHA 1)
+    lcd.print("Conectando...");
+    delay(500);
+  }
+  lcd.clear();
+  lcd.setCursor(0, 0);  //SETA A POSIÇÃO EM QUE O CURSOR INCIALIZA(LINHA 1)
+  lcd.print("Conectado.");
+  delay(1000);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);    //SETA A POSIÇÃO EM QUE O CURSOR INCIALIZA(LINHA 1)
+  lcd.print("Sala 005");  //ESCREVE O TEXTO NA PRIMEIRA LINHA DO DISPLAY LCD
+  lcd.setCursor(0, 1);
+  lcd.print("Informatica");
 }
 // --------------------------------------------------------------------
 void loop() {
@@ -50,20 +65,18 @@ void loop() {
       nomeProfessor = "Julia";
     }
     lcd.clear();
-
     lcd.setCursor(0, 0);
     lcd.print("Bem vindo(a)");
     lcd.setCursor(0, 1);
     lcd.print(nomeProfessor);
-
     delay(2000);
     lcd.clear();
 
-    while(!mfrc522.PICC_IsNewCardPresent()){
-    lcd.setCursor(0, 0);
-    lcd.print("Aproxime");
-    lcd.setCursor(0, 1);
-    lcd.print("para confirmar");
+    while (!mfrc522.PICC_IsNewCardPresent()) {
+      lcd.setCursor(0, 0);
+      lcd.print("Aproxime");
+      lcd.setCursor(0, 1);
+      lcd.print("para confirmar");
     }
 
     StaticJsonDocument<200> doc;
@@ -78,7 +91,7 @@ void loop() {
     http.begin(client, url);
     http.addHeader("Content-Type", "application/json");
     int httpResponseCode = http.POST(json);
-
+    Serial.println(httpResponseCode);
     // Verificar se a solicitação foi bem sucedida
     if (httpResponseCode == 201) {
       lcd.clear();
@@ -93,6 +106,7 @@ void loop() {
       lcd.print("Erro de");  //ESCREVE O TEXTO NA PRIMEIRA LINHA DO DISPLAY LCD
       lcd.setCursor(0, 1);
       lcd.print("conexao");
+      delay(3000);
     }
 
     // Finalizar a conexão HTTP
